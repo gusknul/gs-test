@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace GsTest\Jobs;
 
 use Illuminate\Bus\Queueable;
 

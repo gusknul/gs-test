@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http;
+namespace GsTest\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -13,11 +13,11 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \App\Http\Middleware\EncryptCookies::class,
+        \GsTest\Http\Middleware\EncryptCookies::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \App\Http\Middleware\VerifyCsrfToken::class,
+        \GsTest\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -26,8 +26,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth' => \GsTest\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \GsTest\Http\Middleware\RedirectIfAuthenticated::class,
+        'is_admin' => \GsTest\Http\Middleware\IsAdmin::class,
+        'is_employee' => \GsTest\Http\Middleware\IsEmployee::class,
     ];
 }

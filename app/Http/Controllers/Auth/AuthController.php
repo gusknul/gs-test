@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace GsTest\Http\Controllers\Auth;
 
-use App\User;
+use GsTest\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use GsTest\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -22,6 +22,9 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+    protected $loginPath = '/';
+    protected $redirectPath = '/admin/home';
 
     /**
      * Create a new authentication controller instance.

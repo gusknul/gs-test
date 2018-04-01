@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: App
-        psr4_prefix: App
+        namespace: GsTest
+        psr4_prefix: GsTest
         src_path: app

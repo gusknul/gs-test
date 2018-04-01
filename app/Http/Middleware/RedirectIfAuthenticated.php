@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace GsTest\Http\Middleware;
 
 use Closure;
+use GsTest\Model\TypeUser;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
@@ -35,7 +37,13 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if ($this->auth->check()) {
-            return redirect('/');
+
+            if(Auth::user()->type_user->id == TypeUser::ADMIN){
+                return redirect('/admin/home');
+            }else{
+                return redirect('/employee/home');
+            }
+
         }
 
         return $next($request);

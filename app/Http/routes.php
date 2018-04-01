@@ -10,7 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/', 'Auth\AuthController@getLogin');
+Route::post('login', 'Auth\AuthController@postLogin');
+Route::get('logout', 'Auth\AuthController@getLogout');
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'is_admin'], 'namespace' => 'admin'], function () {
+    Route::get('/home', 'AdminController@index');
+    Route::resource('employees', 'EmployeesController');
 });
