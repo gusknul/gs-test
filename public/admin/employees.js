@@ -5,15 +5,17 @@ $(document).ready(function () {
 });
 
 function saveEmployee() {
-    var employee_json = $('#form-employee').serializeJSON();
-    employee_json._token = window.Laravel.csrfToken;
+    var employee_form = $('#form-employee')[0];
+    var form_data = new FormData(employee_form);
+    form_data.append('_token', window.Laravel.csrfToken);
     $('#list-errors').children().remove();
     $('#container-errors').hide();
     $.ajax({
         url: '/admin/employees',
         type: 'post',
-        dataType: 'json',
-        data: employee_json,
+        data: form_data,
+        processData: false,
+        contentType: false,
         success: function (response) {
             if (response.status) {
                 swal({
@@ -88,7 +90,6 @@ function deleteEmployee(employee_id) {
     });
 }
 
-
 function show(employee_id) {
     $.ajax({
         url: '/admin/employees/' + employee_id,
@@ -106,7 +107,6 @@ function show(employee_id) {
         }
     });
 }
-
 
 function edit(employee_id) {
     $.ajax({
@@ -132,6 +132,49 @@ function edit(employee_id) {
         },
         error: function (error) {
             reject("Ocurrio un error en el servidor");
+        }
+    });
+}
+
+function updateEmployee() {
+    var employee_id = $('#employee-id').val();
+    var employee_form = $('#form-edit-employee')[0];
+    var form_data = new FormData(employee_form);
+    form_data.append('_token', window.Laravel.csrfToken);
+    form_data.append('_method', 'patch');
+    $('#list-edit-errors').children().remove();
+    $('#container-edit-errors').hide();
+    $.ajax({
+        url: '/admin/employees/' + employee_id,
+        type: 'post',
+        data: form_data,
+        processData: false,
+        contentType: false,
+        headers: {
+            'X-CSRF-TOKEN': window.Laravel.csrfToken
+        },
+        success: function (response) {
+            if (response.status) {
+                swal({
+                    title: 'Exito!',
+                    text: response.message,
+                    type: 'success',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then(function () {
+                    location.reload();
+                }, function (dismmiss) {
+                })
+            } else {
+                $.each(response.errors, function (index, value) {
+                    $('#list-edit-errors').append("<li>" + value + "</li>");
+                });
+                $('#container-edit-errors').fadeIn();
+            }
+
+        },
+        error: function (error) {
+            console.log(error);
         }
     });
 }

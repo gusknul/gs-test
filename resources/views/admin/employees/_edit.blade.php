@@ -1,10 +1,9 @@
-<form class="form-horizontal" id="form-employee" name="form_employee" novalidate>
-    <div class="form-group alert alert-danger" id="container-errors" style="display: none;">
-        <ul id="list-errors">
-
+<form class="form-horizontal" id="form-edit-employee" name="form_edit_employee" novalidate>
+    <div class="form-group alert alert-danger" id="container-edit-errors" style="display: none;">
+        <ul id="list-edit-errors">
         </ul>
     </div>
-
+    <input type="hidden" id="employee-id" value="{{$employee->id}}">
     <div class="form-group">
         <label class="col-md-4 control-label">Nombre:</label>
         <div class="col-md-8">
@@ -43,12 +42,12 @@
     <div class="form-group">
         <label class="col-md-4 control-label">Correo:</label>
         <div class="col-md-8">
-            <input type="email" class="form-control" name="email" value="{{$employee->email}}">
+            <input type="email" class="form-control" name="email" value="{{$employee->user->email}}">
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-md-12 control-label"><input type="checkbox" id="change-password">¿Desea cambiar la contraseña?</label>
+        <label class="col-md-12 control-label"><input type="checkbox" name="change_password" id="change-password">¿Desea cambiar la contraseña?</label>
     </div>
 
     <div class="form-group change_password" style="display: none">
